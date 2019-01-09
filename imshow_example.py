@@ -42,8 +42,8 @@ def numpy_array_to_imshow_matrix(x,y,z, x_min, x_max, y_min, y_max, num_bins):
     if(len(x) != len(y) != len(z)):
         raise Exception('x, y and z must have the same dimensions')
 
-    x_bins = np.linspace(x_min, x_max, num_bins)
-    y_bins = np.linspace(y_min, y_max, num_bins)
+    x_bins = np.linspace(x_min, x_max, num_bins, endpoint=False)
+    y_bins = np.linspace(y_min, y_max, num_bins, endpoint=False)
 
     matrix = np.zeros((num_bins,num_bins))
 
@@ -52,7 +52,7 @@ def numpy_array_to_imshow_matrix(x,y,z, x_min, x_max, y_min, y_max, num_bins):
         index_bin_x = np.digitize(x[i], x_bins)
         index_bin_y = np.digitize(y[i], y_bins)
 
-        matrix[num_bins-index_bin_y-1][index_bin_x-1] = z[i]
+        matrix[num_bins-index_bin_y][index_bin_x-1] = z[i]
 
     return matrix
 
@@ -80,7 +80,7 @@ ax = fig.add_subplot(111)
 
 
 # Desired number of bins
-num_bins = 300
+num_bins = 5
 
 # Here we build a simple example: y = x^2, with x in [0,2]
 num_points = 500
