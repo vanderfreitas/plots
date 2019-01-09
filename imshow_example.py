@@ -52,7 +52,7 @@ def numpy_array_to_imshow_matrix(x,y,z, x_min, x_max, y_min, y_max, num_bins):
         index_bin_x = np.digitize(x[i], x_bins)
         index_bin_y = np.digitize(y[i], y_bins)
 
-        matrix[len(y)-index_bin_y-1][index_bin_x-1] = z[i]
+        matrix[num_bins-index_bin_y-1][index_bin_x-1] = z[i]
 
     return matrix
 
@@ -80,9 +80,10 @@ ax = fig.add_subplot(111)
 
 
 # Desired number of bins
-num_points = 1000
+num_bins = 300
 
 # Here we build a simple example: y = x^2, with x in [0,2]
+num_points = 500
 x = np.linspace(0,2,num_points)
 y = np.zeros(num_points)
 z = np.zeros(num_points) + 1
@@ -91,7 +92,7 @@ z = np.zeros(num_points) + 1
 y = x*x
 
 # Convert data from numpy 1D arrays to a 2D matrix, relating x (rows), y (columns) and z (intensity) 
-matrix = numpy_array_to_imshow_matrix(x,y,z, 0, 2, 0, 4, num_points)
+matrix = numpy_array_to_imshow_matrix(x,y,z, 0, 2, 0, 4, num_bins)
 
 # Plotting the matrix
 ax.imshow(matrix[:,:], interpolation='none', cmap='Greys', aspect='auto', extent = [0, 2, 0, 4])
